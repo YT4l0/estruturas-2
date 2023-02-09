@@ -1,0 +1,77 @@
+struct mes
+{
+    char *nome;
+    unsigned num;
+};
+
+struct no
+{
+    mes info;
+    struct no *esq;
+    struct no *dir;
+};
+
+int main()
+{
+    int i, count;
+
+    struct mes meses[12];
+    meses[0].nome = (char *)"janeiro";
+    meses[0].num = 1;
+    struct no N[12];
+    N[0].info = meses[0];
+    N[0].esq = 0;
+    N[0].dir = 0;
+
+    meses[1].nome = (char *)"Fevereiro";
+    meses[1].num = 2;
+    N[1].info = meses[1];
+    N[0].dir = &N[2];
+
+    meses[2].nome = (char *)"Marco";
+    meses[2].num = 3;
+    N[2].info = meses[2];
+    N[0].esq->esq=&N[3];
+
+    meses[3].nome = (char *)"Abril";
+    meses[3].num = 4;
+    N[3].info = meses[3];
+
+
+    meses[4].nome = (char *)"Maio";
+    meses[4].num = 5;
+    N[4].info = meses[4];
+
+    meses[5].nome = (char *)"Junho";
+    meses[5].num = 6;
+    N[5].info = meses[5];
+
+    meses[6].nome = (char *)"Julho";
+    meses[6].num = 7;
+    N[6].info = meses[6];
+
+    meses[7].nome = (char *)"Agosto";
+    meses[7].num = 8;
+    N[7].info = meses[7];
+
+    meses[8].nome = (char *)"Setembro";
+    meses[8].num = 9;
+    N[8].info = meses[8];
+
+    meses[9].nome = (char *)"Outubro";
+    meses[9].num = 10;
+    N[9].info = meses[9];
+
+    meses[10].nome = (char *)"Novembro";
+    meses[10].num = 11;
+    N[10].info = meses[10];
+
+    meses[11].nome = (char *)"Dezembro";
+    meses[11].num = 12;
+    N[11].info = meses[11];
+
+    N[0].esq = &N[1];
+
+
+    return 0;
+}
