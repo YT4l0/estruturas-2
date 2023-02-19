@@ -1,0 +1,122 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct no{ //criando uma struct do tipo no
+    
+    int conteudo;
+   struct no *esquerda;
+    struct no *direita;
+    
+}No;
+
+typedef struct arvb{ //criando uma struct do tipo arvore que guarda um ponteiro para raiz
+    No *raiz;
+    
+}ArvB;
+
+void inserirEsquerda(No *no, int valor){
+    
+    if(no -> esquerda == NULL){
+        No *novo = (No*)malloc(sizeof(No));
+        novo->conteudo = valor;
+        novo->esquerda = NULL;
+        novo->direita = NULL;
+        no->esquerda = novo;
+        
+    }
+    else{
+        
+        if(valor < no ->esquerda->conteudo)
+        inserirEsquerda(no->esquerda, valor);
+        else
+        inserirDireita(no->esquerda, valor);
+    }
+        
+}
+    
+
+
+void inserirDireita(No *no, int valor){
+    if(no -> direita == NULL ){
+          No *novo = (No*)malloc(sizeof(No));
+        novo->conteudo = valor;
+        novo->esquerda = NULL;
+        novo->direita = NULL;
+        no->direita = novo;
+    }
+    else{
+        if(valor > no->direita -> conteudo )
+        inserirDireita(no->direita, valor);
+        else
+        inserirEsquerda(no->direita, valor);
+    }
+}
+
+void inserir(ArvB *arv, int valor){ //criando a função de inserir que recebe um ponteiro para arvore e o valor a ser inserido
+
+if(arv -> raiz == NULL){ // verificando se a raiz da arvore é nula usa-se seta porque estamos trabalhando com ponteiros
+
+No *novo = (No*)malloc(sizeof(No)); //criando um novo no e alocando dinamicamente com a função 
+
+novo -> conteudo = valor; //o novo no vai receber o conteudo 
+novo -> esquerda = NULL; //ja que esseno acabou de ser criado não tem nada a esquerda e a direirta
+novo -> direita = NULL;
+arv -> raiz = novo; // dizrendo que o novo no é a nova raiz
+
+}
+else{
+    if(valor < arv->raiz->conteudo)
+    
+        inserirEsquerda(arv->raiz, valor);
+    
+    else
+    inserirDireita(arv->raiz, valor);
+}
+    
+}
+
+void imprimir(No *raiz){
+    if(raiz != NULL){
+        printf("%d\t", raiz->conteudo);
+        imprimir(raiz->esquerda);
+        imprimir(raiz->direita);
+    }
+}
+
+int main() {
+    int op, valor;
+    ArvB arv;
+    arv.raiz = NULL;
+    
+    
+    
+    
+    do{
+        printf("\n0 - sair\n1 - inserir\n2 - imprimir\n");
+        scanf("%d", &op);
+        
+        switch(op){
+
+            case 0:
+            printf("saindooooo");
+            break;
+
+            case 1:
+            printf("digite um valor: ");
+            scanf("%d", &valor);
+            inserir(&arv, valor);
+
+            break;
+            case 2:
+            imprimir(arv.raiz);
+            break;
+
+            default:
+            printf("opcao invalida");
+        }
+        
+    }while(op != 0);
+ 
+    return 0;
+}
